@@ -1,0 +1,16 @@
+
+<table>
+  <tr>
+    <th></th>
+    <th>Name of Book:</th>
+    <th>Name of author:</th>
+    <th></th>
+  </tr>
+  <% @books.each do |book| %>
+    <tr>
+      <td><%= link_to image_tag(book.image_url(:thumb)),product_path(book) %></td>
+      <td><%= book.namebook%></td>
+      <td><%= book.nameauthor%>
+    </tr>
+  <% end %>
+</table>

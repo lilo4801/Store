@@ -1,13 +1,10 @@
 class UsersController < ApplicationController
-  skip_before_action :require_login, only: [:new, :create]
-  def index
-    @users=User.all
-  end
-  def show
-     @user = User.find_by(id: session[:user_id] )
-   end
+
   def new
     @user=User.new
+  end
+  def edit
+     @user=User.find_by(params[:id])
   end
   def create
     @user=User.new(user_params)
@@ -16,7 +13,17 @@ class UsersController < ApplicationController
      redirect_to users_path
    else
      flash[:success] = "Register failed"
-     redirect_to '/users/new'
+     render :new
+   end
+   def update
+     @user=User.find_by(params[:id])
+     if @user.update(user_params)
+       flash[:notice]='User was updated'
+       redirect_to users_path
+     else
+        flash[:notice]='User was not updated'
+        render :edit
+     end
    end
   end
   private

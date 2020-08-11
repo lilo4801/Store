@@ -1,24 +1,36 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>LoginApp</title>
+    <title>Store</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
+     <% if flash[:notice] %>
+      <%= notice %>
+     <% end %>
+     <% if flash[:alert] %>
+      <%= alert %>
+     <% end %>
+    <%= link_to root_path do %>
+      <h1>Book store</h1>
+      <% end  %>
+            <% if logged_in? %>
+              <%= link_to 'Sell', new_product_path %>
+                  <%= link_to current_user.mail, edit_user_path(@current_user) %>
+                <%= link_to "Logout", logout_path, method: :delete, data: { confirm: "Are you sure ?" } %>
+                </div>
+              </div>
+            <% else %>
+
+            <%= link_to "Sign In", login_path %>
+            <%= link_to "Sign up", new_user_path%>
+
+            <% end %>
 
   <body>
-    <section class="content" style="min-height: auto;">
-      <% flash.each do |key, value| %>
-        <div class="row">
-          <div class="alert alert-<%= key %>">
-            <%= value %>
-          </div>
-        </div>
-      <% end %>
-    </section>
     <%= yield %>
   </body>
 </html>
